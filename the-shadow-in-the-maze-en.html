@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b36">
+<meta name="description" content="An interactive mystery adventure for readers ages 8–10. Make choices, find clues, and discover four endings.">
+<title>The Shadow in the Maze | Mystery Club</title>
+<style>
+:root{--ink:#17314b;--paper:#fffaf1;--gold:#ffcf69;--violet:#6a57c7;--blue:#263b78;--aqua:#86e2d5;--border:#d9e2e7;--muted:#526477}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 8%,#4056a7 0,transparent 36%),radial-gradient(circle at 90% 65%,#163f62 0,transparent 40%),#101b36;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.7}
+button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:4px solid #f9ba34;outline-offset:3px}button:disabled{opacity:.5;cursor:default}
+.shell{max-width:970px;margin:0 auto;padding:22px 18px 55px}.mast{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;color:white;margin-bottom:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.02em}.brand-mark{display:grid;place-items:center;width:44px;height:44px;background:var(--gold);border-radius:15px;color:#24305a;font-size:25px;transform:rotate(-6deg)}.mast small{color:#d1dcf5;font-weight:600}.controls{display:flex;gap:8px;flex-wrap:wrap}.small-btn{border:1px solid #a2b8e0;border-radius:13px;background:#ffffff19;color:white;padding:8px 13px;font-size:.9rem;font-weight:750}.small-btn:hover{background:#ffffff34}
+.card{overflow:hidden;background:var(--paper);border-radius:26px;border:2px solid #809bb1;box-shadow:0 16px 0 #030e2380,0 36px 66px #0005}.hero{position:relative;height:290px;background:linear-gradient(135deg,#172c59,#303c84);overflow:hidden}.hero svg{display:block;width:100%;height:100%}.star{fill:#ffdf83}.content{padding:clamp(24px,5vw,52px)}.eyebrow{display:inline-block;background:#ffe49e;padding:4px 13px;border-radius:30px;font-weight:900;font-size:.8rem;letter-spacing:.1em;color:#4d3e3b;text-transform:uppercase}h1,h2{font-family:Georgia,"Times New Roman",serif;line-height:1.15;letter-spacing:-.018em}h1{font-size:clamp(2.3rem,6vw,4.5rem);margin:15px 0 10px}h2{font-size:clamp(2rem,5vw,3.1rem);margin:15px 0 18px}.subtitle{font-weight:750;color:#5a4a91;font-size:1.2rem}.story{font-size:clamp(1.08rem,2.3vw,1.26rem);max-width:68ch}.story p{margin:0 0 18px}.story strong{color:#392b80}.question{margin:29px 0 12px;font-weight:900;font-size:1.18rem;color:#322f72}.choices{display:grid;gap:12px}.choice{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:#fff;border:2px solid #d8dfeb;color:var(--ink);border-radius:16px;padding:15px 17px;box-shadow:0 4px 0 #e2e1e4;font-size:1.06rem;font-weight:750;transition:transform .15s,background .15s,border-color .15s}.choice:hover{transform:translateY(-2px);border-color:#8f7ae0;background:#f5f1ff}.choice .num{display:grid;place-items:center;border-radius:12px;background:#eae6ff;color:#40348e;min-width:36px;height:36px;font-size:.91rem}.choice .arrow{margin-left:auto;color:#6959bf;font-size:1.3rem}.end-tag{display:inline-flex;align-items:center;gap:8px;background:#e0f6e7;color:#1c6949;border-radius:20px;padding:5px 12px;font-weight:900}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:23px}.action{background:#4936ad;color:white;border:0;border-radius:13px;padding:12px 18px;font-weight:800}.action.secondary{background:#eae5fc;color:#382885}.action:hover{filter:brightness(1.07)}.progress-wrap{margin-bottom:16px;color:#e6edff}.progress-head{display:flex;justify-content:space-between;gap:15px;font-weight:800;font-size:.89rem;margin-bottom:7px}.track{height:10px;background:#d8e4ef40;border-radius:30px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ffd26f,#74e5ce);border-radius:30px;transition:width .3s}.note{margin-top:27px;padding:17px 19px;background:#eef7ff;border-left:5px solid #70bada;border-radius:13px;font-weight:650;color:#234b65}.footer{text-align:center;color:#d5dded;padding:22px 0;font-size:.9rem}.footer button{background:none;color:#fff;border:0;text-decoration:underline}.hidden{display:none!important}.collection{margin-top:24px;padding:18px;border:1px solid #e8e0c9;background:#fff3d9;border-radius:15px}.collection strong{display:block;margin-bottom:5px}.ending-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.token{font-size:.85rem;background:#fff;border:1px solid #ddcaa0;border-radius:50px;padding:5px 10px;font-weight:800}.token.lock{color:#8b8d96;background:#f6f5f2}.intro-copy{max-width:64ch}.hint{color:#617287;font-size:.94rem;margin-top:11px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:570px){.shell{padding:12px 9px 35px}.mast{padding:4px 4px}.brand{font-size:.92rem}.hero{height:210px}.card{border-radius:17px}.content{padding:24px 20px}.story{font-size:1.08rem}.controls{width:100%}.choice{padding:13px 12px}.mast small{font-size:.76rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="mast"><div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><div>THE MYSTERY CLUB<br><small>Read. Choose. Discover.</small></div></div><div class="controls"><button type="button" id="back" class="small-btn" hidden>← Back</button><button type="button" id="home" class="small-btn">⌂ Home</button><button type="button" id="restart" class="small-btn">↻ Restart</button></div></header>
+<section id="progress" class="progress-wrap hidden" aria-label="Adventure progress"><div class="progress-head"><span id="chapter">Chapter</span><span id="progress-text">Your adventure</span></div><div class="track"><div id="progress-fill" class="fill" style="width:0%"></div></div></section>
+<main id="main" class="card" aria-live="polite" aria-atomic="true"><div id="art" class="hero" role="img" aria-label="Mysterious illustration of a room, a window, and a video game"></div><div class="content"><div id="tag" class="eyebrow"></div><h1 id="title"></h1><div id="subtitle" class="subtitle"></div><div id="story" class="story"></div><div id="prompt" class="question"></div><div id="choices" class="choices"></div><div id="end-extra"></div><div id="actions" class="actions"></div></div></main>
+<footer class="footer">An interactive reading prototype for ages 8–10 · No ads, accounts, or data collection. <span aria-hidden="true">✦</span></footer>
+</div>
+<script>
+"use strict";
+const scenes={
+ "intro": {
+  "type": "intro",
+  "title": "The Shadow in the Maze",
+  "paragraphs": [
+   "Tonight, **you** decide what Alex does. Each choice changes the story. Read carefully: even tiny clues can lead to a secret ending.",
+   "There are no wrong choices. When you reach an ending, you can go back and explore a different path."
+  ],
+  "tag": "AN ADVENTURE FOR CURIOUS, BRAVE READERS",
+  "subtitle": "An old video game. A window without curtains. And something that should not be on the wall.",
+  "options": [
+   {
+    "label": "Enter the adventure",
+    "to": "habitacion"
+   }
+  ],
+  "art": "cover"
+ },
+ "habitacion": {
+  "type": "chapter",
+  "n": 1,
+  "title": "One More Game",
+  "paragraphs": [
+   "The study is a small room with a computer, a bookshelf, and a window without curtains. Outside, streetlights shine in the dark.",
+   "Mom has stepped out for a little while, and a trusted neighbor is next door. Alex knows the rules: playing for a short time is okay, but opening the door to strangers is not.",
+   "Alex’s favorite game is Pac-Man. A little yellow character races through a blue maze, eating dots and dodging ghosts.",
+   "The desk lamp is off. Alex’s shadow stretches across the wall. Then, just as Pac-Man loses a life, **something moves behind that shadow**."
+  ],
+  "question": "What should Alex do?",
+  "options": [
+   {
+    "label": "Study the shadow without turning around",
+    "to": "sombra"
+   },
+   {
+    "label": "Turn on the desk lamp",
+    "to": "lampara"
+   }
+  ],
+  "art": "game"
+ },
+ "sombra": {
+  "type": "chapter",
+  "n": 2,
+  "title": "Five Fingers, Far Too Long",
+  "paragraphs": [
+   "Alex holds their breath. Next to the shadow of their head, another shape appears: five long, curved fingers, like a claw from a cartoon.",
+   "Alex slowly raises one hand. Their own shadow moves ... but **the five strange fingers stay still**.",
+   "A new round of video-game music begins. The shape seems to creep a little closer to the chair."
+  ],
+  "question": "What do you do?",
+  "options": [
+   {
+    "label": "Call out to Mom, even though she is away",
+    "to": "voz"
+   },
+   {
+    "label": "Keep playing and watch what happens",
+    "to": "partida"
+   },
+   {
+    "label": "Spin the chair around and look behind you",
+    "to": "giro"
+   }
+  ],
+  "art": "shadow"
+ },
+ "lampara": {
+  "type": "chapter",
+  "n": 2,
+  "title": "Click!",
+  "paragraphs": [
+   "Alex flips the switch. Light floods the desk ... and the shadow disappears.",
+   "But something has changed. There is a **tiny blue mark** on the window, as though someone has pressed a ribbon against the glass.",
+   "A sheet of paper flutters on the desk. The window, which was closed before, is now slightly open."
+  ],
+  "question": "Which clue will you investigate first?",
+  "options": [
+   {
+    "label": "Study the blue mark from inside",
+    "to": "marca"
+   },
+   {
+    "label": "Go to the lit hallway and ask for help",
+    "to": "pasillo"
+   }
+  ],
+  "art": "window"
+ },
+ "voz": {
+  "type": "chapter",
+  "n": 3,
+  "title": "A Voice in the Hallway",
+  "paragraphs": [
+   "“Mom! Is there anything to eat?” Alex calls, trying to sound calm.",
+   "Alex knows Mom is not home, but the trick seems to work. The claw pulls back a tiny bit. Then comes a soft sound: **tap, tap**, near the window.",
+   "On the screen, Pac-Man returns to the start of the maze. The shadow waits."
+  ],
+  "question": "What will you choose?",
+  "options": [
+   {
+    "label": "Step into the brightly lit hallway",
+    "to": "pasillo"
+   },
+   {
+    "label": "Listen more carefully to the noise at the window",
+    "to": "ventana"
+   }
+  ],
+  "art": "shadow"
+ },
+ "partida": {
+  "type": "chapter",
+  "n": 3,
+  "title": "The Ghost Is Not Playing Alone",
+  "paragraphs": [
+   "Alex starts another round. When Pac-Man turns left, the claw’s shadow stretches left. When he turns right, the shadow shifts right.",
+   "Could it be a coincidence? Alex pauses the game. The strange hand freezes.",
+   "Then Alex notices something else: a **blue ribbon is fluttering** beside the window."
+  ],
+  "question": "Which clue matters most?",
+  "options": [
+   {
+    "label": "The blue ribbon beside the window",
+    "to": "marca"
+   },
+   {
+    "label": "The shadow copying the game",
+    "to": "codigo"
+   }
+  ],
+  "art": "maze"
+ },
+ "giro": {
+  "type": "chapter",
+  "n": 3,
+  "title": "Behind the Chair",
+  "paragraphs": [
+   "Alex counts: one, two, three ... and spins around!",
+   "No monster. Just the bookshelf, a small plant, and a window letting in a breeze.",
+   "But when Alex looks at the wall again, the long fingers are still there. That makes no sense: **the shadow does not match anything Alex can see**."
+  ],
+  "question": "What would you do now?",
+  "options": [
+   {
+    "label": "Follow the light coming from the streetlamp",
+    "to": "ventana"
+   },
+   {
+    "label": "Go find a trusted grown-up",
+    "to": "pasillo"
+   }
+  ],
+  "art": "room"
+ },
+ "marca": {
+  "type": "chapter",
+  "n": 4,
+  "title": "The Secret on the Glass",
+  "paragraphs": [
+   "Without getting too close, Alex studies the window from the desk. The blue mark is not paint. It is the reflection of a ribbon tied to a paper shape outside the glass.",
+   "The paper looks like a hand with long fingers. The wind makes it spin, and the streetlight throws its shadow onto the wall.",
+   "That could explain the claw! But one question remains: **who put the paper shape there?**"
+  ],
+  "question": "Which clue will you follow?",
+  "options": [
+   {
+    "label": "Look at the drawing on the ribbon",
+    "to": "mensaje"
+   },
+   {
+    "label": "Ask a grown-up to check the window safely",
+    "to": "pasillo"
+   }
+  ],
+  "art": "window"
+ },
+ "ventana": {
+  "type": "chapter",
+  "n": 4,
+  "title": "Tap, Tap, Tap",
+  "paragraphs": [
+   "Alex moves only close enough to see the glass, without opening the window. Something outside taps against it.",
+   "It does not look like a living claw. It is a **cardboard cutout**, hanging from a blue ribbon. The streetlight makes its long fingers appear on the wall.",
+   "In one corner of the cardboard, someone has drawn a tiny maze, just like the one in the video game."
+  ],
+  "question": "What will you decide?",
+  "options": [
+   {
+    "label": "Work out what the tiny maze means",
+    "to": "codigo"
+   },
+   {
+    "label": "Call a grown-up and explain everything",
+    "to": "pasillo"
+   }
+  ],
+  "art": "window"
+ },
+ "codigo": {
+  "type": "chapter",
+  "n": 5,
+  "title": "The Drawn Maze",
+  "paragraphs": [
+   "Alex studies the paper on the glass. It shows four arrows: up, right, down, left. Underneath are the words: **“Not every shadow is trying to scare you.”**",
+   "The arrows match moves Alex made during the last game. Following them with their eyes, Alex discovers a word hidden in the paths: **BOOK**.",
+   "Alex remembers a puzzle book Mom keeps on the bookshelf."
+  ],
+  "question": "What should happen next?",
+  "options": [
+   {
+    "label": "Find the puzzle book",
+    "to": "libro"
+   },
+   {
+    "label": "Leave the mystery for now and wait with someone",
+    "to": "espera"
+   }
+  ],
+  "art": "maze"
+ },
+ "mensaje": {
+  "type": "chapter",
+  "n": 5,
+  "title": "A Note for Detectives",
+  "paragraphs": [
+   "Four arrows are drawn on the ribbon. Alex traces them in the air and notices tiny letters: **B-O-O-K**.",
+   "The cardboard shape is still swaying outside. Now that Alex knows what it is, it seems far less frightening.",
+   "On the bookshelf sits the puzzle book Mom likes to read with Alex."
+  ],
+  "question": "How does the adventure continue?",
+  "options": [
+   {
+    "label": "Find the puzzle book",
+    "to": "libro"
+   },
+   {
+    "label": "Wait for Mom and show her the clue",
+    "to": "espera"
+   }
+  ],
+  "art": "clue"
+ },
+ "pasillo": {
+  "type": "chapter",
+  "n": 4,
+  "title": "The Open Door",
+  "paragraphs": [
+   "Alex steps into the lit hallway and calls Mom on the phone. She answers right away and asks Alex to stay in the living room while she contacts the trusted neighbor.",
+   "Soon the neighbor arrives. From a safe spot, they look at the window together. A cardboard figure with very long fingers is moving in the wind.",
+   "“Shadows can look enormous when we don’t know what makes them,” says the neighbor. But why is there a maze drawn on the cardboard?"
+  ],
+  "question": "What does Alex do?",
+  "options": [
+   {
+    "label": "Solve the drawing with some help",
+    "to": "codigo"
+   },
+   {
+    "label": "Save the surprise until Mom gets home",
+    "to": "espera"
+   }
+  ],
+  "art": "hall"
+ },
+ "libro": {
+  "type": "chapter",
+  "n": 6,
+  "title": "The Missing Page",
+  "paragraphs": [
+   "Alex opens the puzzle book. Between two pages is a note from Mom: **“For my brave explorer: look behind the front cover.”**",
+   "Behind the cover is a small envelope with a yellow star. Inside, a message reads: “The best mysteries are solved with sharp eyes, good questions, and a little courage.”",
+   "There is also a photo of Alex and Mom making cardboard shadows. Alex had forgotten all about that afternoon!"
+  ],
+  "question": "How will your adventure end?",
+  "options": [
+   {
+    "label": "Open the envelope’s last clue",
+    "to": "final_sorpresa"
+   },
+   {
+    "label": "Take another look at the video-game maze",
+    "to": "final_pixel"
+   },
+   {
+    "label": "Keep the envelope and write your own theory",
+    "to": "final_misterio"
+   }
+  ],
+  "art": "book"
+ },
+ "espera": {
+  "type": "chapter",
+  "n": 6,
+  "title": "When Mom Came Home",
+  "paragraphs": [
+   "Mom comes home. Alex shows her the cardboard cutout moving outside the window and tells her everything, from the first shadow to the mysterious arrows.",
+   "Mom listens carefully. Then she smiles and points to a box of craft supplies. A piece of cardboard ... and a blue ribbon ... are missing.",
+   "“I think we left our surprise a little too close to the window,” she admits. They had made a shadow game together the weekend before."
+  ],
+  "question": "Would you like to find out what happened next?",
+  "options": [
+   {
+    "label": "See how the story ends",
+    "to": "final_sombra"
+   }
+  ],
+  "art": "hall"
+ },
+ "final_sorpresa": {
+  "type": "ending",
+  "ending": 1,
+  "title": "Ending 1: The Secret Club",
+  "paragraphs": [
+   "Inside the envelope is a card: **“Official Invitation to the Mystery Club.”**",
+   "Mom had set up a treasure hunt with paper clues and shadows. A gust of wind loosened one of the cutouts and sent it dancing past the window.",
+   "When Mom returns, Alex tells her how the clues led to the answer. They laugh and decide to invent another adventure ... this time before dark.",
+   "Alex tucks the card into the book. Tomorrow will bring another mystery. And to solve it, Alex will have to **keep reading**."
+  ],
+  "art": "book",
+  "note": "Detective tip: Look closely before imagining the worst. It can change the whole story."
+ },
+ "final_pixel": {
+  "type": "ending",
+  "ending": 2,
+  "title": "Ending 2: The Last Pixel",
+  "paragraphs": [
+   "Alex looks back at the screen. The Pac-Man game is paused. A path in the blue maze has exactly the same shape as the arrows on the ribbon.",
+   "Alex guides the character through the sequence. A secret message appears in the special game level Mom and Alex made together days ago: **“MYSTERY SOLVED!”**",
+   "When Mom gets home, she explains that they had created the level together, but Alex had forgotten. The cardboard figure turned an ordinary game into an unexpected adventure.",
+   "Alex shuts down the computer, switches on the lamp, and writes in a notebook: **“Tomorrow I’ll invent my own maze.”**"
+  ],
+  "art": "maze",
+  "note": "Detective tip: Rereading and connecting clues can reveal new paths."
+ },
+ "final_sombra": {
+  "type": "ending",
+  "ending": 3,
+  "title": "Ending 3: The Friendly Shadow",
+  "paragraphs": [
+   "Mom retrieves the cardboard cutout when it is safe. She holds it in front of a flashlight. Five long fingers appear on the wall again.",
+   "Alex laughs. The claw that seemed so frightening was only paper and light.",
+   "That night they put on a shadow-puppet show. They make a fox, a mountain, and even a tiny ghost.",
+   "Before bed, Alex writes the title of a new story: **“The Shadow That Wanted to Tell a Story.”**"
+  ],
+  "art": "shadow",
+  "note": "Detective tip: Light can change what we think we are seeing."
+ },
+ "final_misterio": {
+  "type": "ending",
+  "ending": 4,
+  "title": "Ending 4: One Last Shadow",
+  "paragraphs": [
+   "Alex decides to keep the paper maze. The next day, with Mom nearby, Alex holds the figure in the light and recreates the claw’s movement.",
+   "Everything seems explained. But when Alex opens the puzzle book, there is a page no one remembers seeing: **“The next mystery begins when someone dares to read it.”**",
+   "Alex smiles. Maybe Mom has planned another surprise. Or maybe mysteries always leave one door slightly open.",
+   "Alex picks up a pencil and writes: **“Chapter One ...”**"
+  ],
+  "art": "clue",
+  "note": "Detective tip: Sometimes an ending is the beginning of another story."
+ }
+};
+const $=id=>document.getElementById(id);
+const safeText=(text)=>text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+let path=["intro"],found=[];
+try{const a=JSON.parse(localStorage.getItem("club-shadow-en-v1")||"null");if(a&&Array.isArray(a.path)&&a.path.every(id=>scenes[id])&&Array.isArray(a.found)){path=a.path;found=a.found.filter(n=>Number.isInteger(n)&&n>=1&&n<=4)}}catch(e){}
+function persist(){try{localStorage.setItem("club-shadow-en-v1",JSON.stringify({path,found}))}catch(e){}}
+function artwork(kind){const windowShape=`<rect x="535" y="70" width="192" height="181" rx="7" fill="#8cace4" stroke="#ddc7a3" stroke-width="13"/><path d="M630 77v170M539 162h183" stroke="#e6d1af" stroke-width="9"/><circle cx="674" cy="112" r="23" fill="#ffe2a0"/><path d="M550 215q46-53 86 0t88-13" fill="none" stroke="#bdd8fb" stroke-width="6"/>`;
+const desk=`<rect x="105" y="264" width="385" height="17" rx="8" fill="#b9875e"/><path d="M132 282v62m330-62v62" stroke="#8d6072" stroke-width="13"/><rect x="191" y="123" width="205" height="137" rx="12" fill="#132a52" stroke="#b9cee6" stroke-width="10"/><rect x="205" y="137" width="177" height="106" rx="4" fill="#162f7e"/><path d="M226 151h137v76H226z" fill="none" stroke="#80acee" stroke-dasharray="7 14" stroke-width="4"/><circle cx="275" cy="184" r="17" fill="#ffd24d"/><path d="M276 185l17-13v26Z" fill="#162f7e"/><circle cx="340" cy="172" r="9" fill="#ffa1a0"/><circle cx="340" cy="201" r="9" fill="#9fe1e6"/><rect x="280" y="252" width="24" height="12" fill="#bdc9da"/>`;
+const spooky=`<path d="M465 200q6-34 16-65q9-22 21-17q14 6 4 39l17-51q8-20 22-15q12 5 5 23l-10 45l25-42q14-21 26-11q10 9-5 29l-23 41l28-23q15-10 23 1q9 12-8 25l-59 46q-41 23-82-25Z" fill="#131d45" opacity=".46"/>`;
+const paper=`<path d="M626 115l18-34l17 34l16-18l10 35l-30 30Z" fill="#f7dca2" stroke="#ca9e6e" stroke-width="4"/><path d="M657 163l-9 37" stroke="#70c9e0" stroke-width="7"/>`;
+let extra='';if(["cover","game","maze"].includes(kind))extra=`<g opacity=".7"><path d="M35 70h82v61h-58v57h83" fill="none" stroke="#657bdd" stroke-width="9" stroke-linecap="round"/><circle cx="114" cy="117" r="6" fill="#f8e08c"/><circle cx="74" cy="174" r="6" fill="#f8e08c"/></g>`;
+if(["shadow","room"].includes(kind))extra=spooky;
+if(["window","clue"].includes(kind))extra=paper;
+if(kind==="book")extra=`<g transform="translate(500 188) rotate(-11)"><path d="M0 10Q57-11 95 16V116Q44 91 0 123Z" fill="#ffe5a8" stroke="#c99a74" stroke-width="7"/><path d="M0 10Q-51-11-94 16V116Q-44 91 0 123Z" fill="#fff2cf" stroke="#c99a74" stroke-width="7"/><path d="M0 9v113" stroke="#9677a4" stroke-width="5"/><path d="M20 55h57M20 71h47M-75 53h53M-75 72h48" stroke="#ac9a9a" stroke-width="4"/></g>`;
+if(kind==="hall")extra=`<rect x="475" y="117" width="90" height="210" rx="5" fill="#705c97" stroke="#ddbc99" stroke-width="10"/><circle cx="545" cy="220" r="6" fill="#ffd67c"/>`;
+return `<svg viewBox="0 0 850 350" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#152651"/><stop offset="1" stop-color="#544c92"/></linearGradient><radialGradient id="light"><stop stop-color="#ffe4a7" stop-opacity=".7"/><stop offset="1" stop-color="#ffe4a7" stop-opacity="0"/></radialGradient></defs><rect width="850" height="350" fill="url(#bg)"/><circle cx="650" cy="133" r="200" fill="url(#light)"/><path d="M0 311h850v39H0Z" fill="#142643"/><path d="M780 0v350M0 0v350" stroke="#7c80c2" stroke-opacity=".25" stroke-width="6"/>${windowShape}${desk}${extra}<g fill="#ffe7a4"><path d="M80 65l5 13l13 5l-13 5l-5 13l-5-13l-13-5l13-5Z"/><path d="M760 48l4 9l9 4l-9 4l-4 9l-4-9l-9-4l9-4Z"/><circle cx="422" cy="51" r="4"/></g><path d="M0 340q180-35 355 0t495 0" fill="none" stroke="#5fd5d0" stroke-opacity=".3" stroke-width="7"/></svg>`}
+function go(id){if(!scenes[id])return;path.push(id);const s=scenes[id];if(s.ending&&!found.includes(s.ending))found.push(s.ending);persist();render();window.scrollTo({top:0,behavior:"instant"})}
+function render(){const id=path[path.length-1],s=scenes[id];$("art").innerHTML=artwork(s.art||"cover");$("tag").textContent=s.type==="intro"?s.tag:s.type==="ending"?"MYSTERY SOLVED · ENDING "+s.ending:"CHAPTER "+s.n;$("title").textContent=s.title;$("title").tagName;$("subtitle").textContent=s.subtitle||"";$("subtitle").classList.toggle("hidden",!s.subtitle);$("story").innerHTML=s.paragraphs.map(p=>`<p>${safeText(p)}</p>`).join("");$("prompt").textContent=s.question||"";$("prompt").classList.toggle("hidden",!s.question);$("choices").innerHTML="";
+(s.options||[]).forEach((o,i)=>{let b=document.createElement("button");b.type="button";b.className="choice";b.innerHTML=`<span class="num">${i+1}</span><span>${safeText(o.label)}</span><span class="arrow" aria-hidden="true">→</span>`;b.addEventListener("click",()=>go(o.to));$("choices").appendChild(b)});
+$("end-extra").innerHTML=s.type==="ending"?`<div class="note">${safeText(s.note)}</div><div class="collection"><strong>Your ending collection: ${found.length} of 4</strong><div class="ending-grid">${[1,2,3,4].map(n=>`<span class="token ${found.includes(n)?'':'lock'}">${found.includes(n)?'✦ Ending '+n:'🔒 Ending '+n}</span>`).join('')}</div><div class="hint">Can you discover all four endings? Go back and try a different path.</div></div>`:"";
+$("actions").innerHTML="";if(s.type==="ending"){addAction("↻ Explore another path",()=>{path=["intro"];persist();render()},false);addAction("← Back a elegir",back,true)}
+$("back").hidden=path.length<=1;$("progress").classList.toggle("hidden",s.type==="intro");$("chapter").textContent=s.type==="ending"?"You reached an ending!":"Chapter "+(s.n||1);$("progress-text").textContent=s.type==="ending"?`${found.length} of 4 endings discovered`:"Follow the clues";$("progress-fill").style.width=(s.type==="ending"?100:Math.min(94,(s.n||1)/6*100))+"%"}
+function addAction(label,fn,secondary){let b=document.createElement("button");b.type="button";b.className="action"+(secondary?" secondary":"");b.textContent=label;b.addEventListener("click",fn);$("actions").appendChild(b)}
+function back(){if(path.length>1){path.pop();persist();render();window.scrollTo({top:0,behavior:"instant"})}}
+$("back").addEventListener("click",back);$("home").addEventListener("click",()=>{path=["intro"];persist();render();window.scrollTo({top:0,behavior:"instant"})});$("restart").addEventListener("click",()=>{if(confirm("Start over? You will keep the endings you have discovered.")){path=["intro"];persist();render();window.scrollTo({top:0,behavior:"instant"})}});
+document.addEventListener("keydown",e=>{if(["INPUT","TEXTAREA","BUTTON"].includes(document.activeElement?.tagName))return;if(!/^[1-3]$/.test(e.key))return;const b=$("choices").children[Number(e.key)-1];if(b)b.click()});render();
+</script>
+</body>
+</html>
